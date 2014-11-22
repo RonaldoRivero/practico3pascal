@@ -1,0 +1,321 @@
+unit unit3;
+
+{$mode objfpc}{$H+}
+
+interface
+
+uses
+  Classes, SysUtils, uconjunto;
+
+Const
+  MAX_E=5000;
+type
+  Cadena=class
+    private
+      elem:array[1..MAX_E]of char;
+      elemA:array[1..MAX_E]of char;
+      elemB:array[1..MAX_E]of char;
+      dim:integer;
+      May,Min,Dig,Sep:Conjunto;
+    public
+      constructor create();
+      function cantPal():integer;
+      procedure leerPal(var pos:integer; var pal:string);
+      procedure addPal(pal:String);
+      procedure Pregunta1();
+      procedure Pregunta2();
+      function  Pregunta4():integer;
+      function  Pregunta5():integer;
+      procedure pregunta6();
+      Procedure pregunta7();
+      procedure pregunta8(pos:integer;Palanbra:String);
+      function pregunta9():integer;
+      procedure pregunta10();
+
+  end;
+
+implementation
+Constructor Cadena.create();
+var
+  i:integer;
+begin
+  dim:=0;
+  for i:=1 to MAX_E do
+      elem[i]:=char(0);
+ May:=Conjunto.create();
+  for i:=0 to 25 do //'A'..'Z'
+        May.adicionar(char(65+i));
+ Min:=Conjunto.create();
+  for i:=0 to 25 do //'a'..'z'
+        Min.adicionar(char(97+i));
+  Dig:=Conjunto.create();
+  for i:=0 to 9 do //'0'..'9'
+        Dig.adicionar(char(48+i));
+  Sep:=Conjunto.create();
+   Sep.adicionar(' ');
+   Sep.adicionar('.');
+   Sep.adicionar(':');
+   Sep.adicionar(';');
+   Sep.adicionar(',');
+   Sep.adicionar('-');
+   Sep.adicionar('_');
+   Sep.adicionar('#');
+
+end;
+function Cadena.cantPal():integer;
+var
+  i,cant:integer;
+  pal:string;
+begin
+   cant:=0;
+   i:=1;
+   while(i<=dim)do
+   begin
+      pal:='';
+      leerPal(i,pal);
+      if(pal<>'')then
+         cant:=cant+1;
+   end;
+   result:=cant;
+end;
+
+procedure Cadena.leerPal(var pos:integer; var pal:string);
+begin
+  pal:='';
+  while(pos<=dim)and(NOT sep.pertenece(elem[pos]))do
+  begin
+     pal:=pal+elem[pos];
+     pos:=pos+1;
+  end;
+  while(pos<=dim)and(sep.pertenece(elem[pos]))do
+    pos:=pos+1;
+end;
+procedure Cadena.addPal(pal:String);
+var
+  i,n:integer;
+begin
+  n:=length(pal);
+  dim:=dim+1;
+  elem[dim]:=' ';
+  for i:=1 to n do
+        begin
+        elem[dim+i]:=pal[i];
+        end;
+  dim:=dim+n
+end;
+procedure Pregunta1();
+var
+  Pal,Elem:Array[1..MAX_E] of Char;
+  pos,i:integer;
+begin
+  Elem:='';
+  Dim:=0;
+  pos:=1;
+  i:=1;
+  While(pos<=Dim)Do
+  begin
+     If (Elem[pos]= 'X') then
+        begin
+          while((pos<=Dim)and(Not.Pertenece(Elem[pos])))Do
+          begin
+             Pal[i]:=Elem[pos];
+             pos:=pos+1;
+             i:=i+1;
+          end;
+        end;
+     Cadena.Reempal(Pal)
+  end;
+
+end;
+procedure Cadena.Pregunta2(Var TextA::Array[1..MAX_E]of Char;TextB:Array[1..MAX_E]of Char);
+var
+  c,d:integer;
+begin
+  c:=length(TextA);
+  d:=length(textB);
+  TextA[c+1]:='';
+  c:=c+1;
+  To i:=1 To d do
+  begin
+  TextA[c+1]:=TextB[i];
+  end;
+end;
+function Cadena.pregunta4():integer;
+var
+  c,i:integer;
+begin
+ C:=0;
+ to i:=1 to Dim Do
+ begin
+ If(Elem[i]='.')then
+    begin
+      C:=c+1;
+    end;
+ end;
+ result:= C;
+end;
+function  Cadena.Pregunta5():integer;
+var
+  Cant,i:integer;
+begin
+ Cant:=0;
+ To i:=1 to Dim Do
+ begin
+ If(Elem[1]=Sep.Pertenece)then
+    begin
+      Cant:=cant+1;
+    end;
+ end;
+ result:=cant;
+end;
+Procedure cadena.pregunta6();
+var
+  posA,posB,pos,m,n,i:integer
+begin
+ posA:=1;
+ posB:=1;
+ Pos:=1;
+ m:=length(ElemA);
+ n:=length(ElemB);
+ For i:=1 to (m+n) DO
+       begin
+       while((posA<=m)and(Not sep.Pertenece(ElemA[posA]))) Do
+       begin
+       Elem[pos]:=ElemA[posA];
+       PosA:=posA+1;
+       pos:=pos+1;
+       end;
+       posA:=posA+1;
+       Pos:=pos+1;
+       Elem[pos]:=ElemA[posA];
+       while ((posB<=m)and(Not sep.Pertenece(ElemB[posB]))) Do
+       begin
+       Elem[pos]:=ElemB[posB];
+       PosB:=posB+1;
+       pos:=pos+1;
+       end;
+       posB:=posB+1;
+       Pos:=pos+1;
+       Elem[pos]:=ElemB[posB];
+       end;
+ end;
+Procedure Cadena.pregunta7();
+var
+  c,pos,d,a:integer;
+  pal:String;
+begin
+ C:=1;
+ pos:=1;
+ pal:='';
+ For i:=pos to Dim DO
+       begin
+       while ((pos<=Dim)and(Not sep.Pertenece(Elem[pos]))) Do
+       begin
+       pal:=Elem[pos];
+       pos:=pos+1;
+       end;
+       a:=length(pal);
+       For d:=a  Downto 1 Do
+             begin
+             ElemA[c]:=pal[a];
+             c:=c+1;
+             end;
+       pos:=pos+1;
+       end;
+end;
+Procedure cadena.pregunta8(pos:integer;Palabra:String);
+var
+  m,i,a:integer;
+  pal:String;
+begin
+ m:=1;
+ i:=1;
+ If (pos<=Dim) then
+    begin
+    repeat
+    pal:='';
+    while((i<=Dim)And(Not sep.pertenece(Elem[i])))Do
+    begin
+    pal:=pal+Elem[i];
+    i:=i+1;
+    end;
+    until(pal=palabra);
+    a:=length(palabra);
+    Dim:=dim+a;
+    For b:=dim to pos Do
+          begin
+          Elem[b]:=elem[b-a];
+          end;
+    for c:=pos to pos+a;
+          begin
+          Elem[pos]:=palabra[m];
+          m:=m+1;
+          end;
+     end;
+end;
+function Cadena.pregunta9():integer;
+var
+  i,pos:integer;
+  Sw:Boolean;
+begin
+ i:=1;
+ Sw:=false;
+ while ((1<Dim)and(not Sw)) Do
+ begin
+ pos:=i;
+ leerPal(i,ElemB);
+ if(ElemB=pal) then
+    begin
+    SW:=true;
+    end;
+ end;
+ If(Sw:=True)then
+    begin
+    result:=pos;
+    end
+    else
+    begin
+    result:=404;
+    end;
+end;
+procedure Cadena.pregunta10();
+begin
+ pos:=1;
+ pal:='';
+ while(pos<=dim) do
+ begin
+ while((pos<=dim)and(Not sep.pertenece(Elem[pos]))) Do
+ begin
+ pal:=pal+Elem[pos];
+ pos:=pos+1;
+ end;
+ If(pos<=dim) then
+    begin
+    i:=pos;
+    palB:='';
+    while((i<=Dim)and(Not Sep.pertenece(elem[i])))Do
+    begin
+    palB:=palB + Elem[i];
+    i:=i+1;
+    end;
+    If(palB=pal)then
+       begin
+       n:=length(pal);
+       for a:=i to Dim Do
+             begin
+             Elem[a-n]:=Elem[n]
+             end;
+        Dim:=dim-n;
+       end
+     else
+     begin
+     while((i<=dim)and(sep.pertenece(Elem[i])))Do
+     begin
+     i:=i+1;
+     end;
+     end;
+ end;
+end;
+end;
+
+end.    
